@@ -52,5 +52,17 @@ def NumberToPattern(index, k):
 def ComputingFrequencies(text, k):
     frequencyArray = [0]*(4**k-1)
     for i in range(0, len(text)-k+1) :
-        pattern = text[i:i+k+1]
-    return ''
+        pattern = text[i:i+k]
+        j = PatternToNumber(pattern)
+        frequencyArray[j] = frequencyArray[j]+1
+    return frequencyArray
+
+def FasterFrequentWords(text, k):
+    frequentPatterns = [] 
+    frequencyArray = ComputingFrequencies(text, k)
+    maxCount = max(frequencyArray)
+    for i in range(0, 4**k-1) :
+        if frequencyArray[i] == maxCount:
+            pattern = NumberToPattern(i, k)
+            frequentPatterns.append(pattern)
+    return frequentPatterns
